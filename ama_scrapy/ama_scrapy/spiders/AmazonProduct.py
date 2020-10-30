@@ -8,6 +8,7 @@ class AmazonproductSpider(scrapy.Spider):
 
     #クロールを開始するURLを動的に変えたい
     def start_request(self):
+        for url in self.urls:
         url = 'https://sardine-system.com/media/'
         yield scrapy.Request(url, callback=self.parse)
     
@@ -17,9 +18,10 @@ class AmazonproductSpider(scrapy.Spider):
         """
         for post in response.css():
             yield  Post(
-                url=
+                name=post.css("span.a-profile-name::text").get(),
+                title = post.css(".review-title>span::text").get(),
             )
-     # 再帰的にページングを辿るための処理
+    # 再帰的にページングを辿るための処理
         older_post_link = response.css('.blog-pagination a.next-posts-link::attr(href)').extract_first()
         if older_post_link is None:
      # リンクが取得できなかった場合は最後のページなので処理を終了

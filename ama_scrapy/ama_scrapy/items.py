@@ -8,6 +8,6 @@ import scrapy
 
 class Post(scrapy.Item):
     # define the fields for your item here like:
-    url=scrapy.Field()
-    name = scrapy.Field()
+    name=scrapy.Field()
+    title=scrapy.Field()
     
